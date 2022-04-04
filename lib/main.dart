@@ -1,7 +1,6 @@
-// import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:food_delivery_app_ui/screens/detail_screen.dart';
 
 import './widgets/mydrawer.dart';
 
@@ -98,6 +97,7 @@ class HomePage extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 18.0),
                       child: Icon(
                         Icons.search,
+                        color: Colors.grey,
                         size: 30,
                       ),
                     ),
@@ -134,6 +134,7 @@ class HomePage extends StatelessWidget {
               SizedBox(height: 20),
               Text('پیشنهادها', style: Theme.of(context).textTheme.headline1),
               SizedBox(height: 10),
+              //* offer cards
               Column(
                 children: [
                   OfferCard(
@@ -155,6 +156,51 @@ class HomePage extends StatelessWidget {
             ],
           ),
         ),
+      ),
+      // *navbar
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(
+            icon: InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: ((context) => DetailScreen()),
+                  ),
+                );
+              },
+              child: Image.asset('images/Home.png'),
+            ),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: ((context) => DetailScreen()),
+                    ),
+                  );
+                },
+                child: Image.asset('images/Order.png')),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: ((context) => DetailScreen()),
+                    ),
+                  );
+                },
+                child: Image.asset('images/User.png')),
+            label: '',
+          ),
+        ],
       ),
     );
   }
