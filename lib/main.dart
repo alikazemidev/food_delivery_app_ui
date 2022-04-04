@@ -1,4 +1,4 @@
-import 'dart:ui';
+// import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -79,63 +79,173 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 20.0,
-          vertical: 35,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            //* search_bar
-            ClipRRect(
-              borderRadius: BorderRadius.circular(22),
-              child: TextField(
-                decoration: InputDecoration(
-                  contentPadding: EdgeInsets.all(15),
-                  suffixIcon: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 18.0),
-                    child: Icon(
-                      Icons.search,
-                      size: 30,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 20.0,
+            vertical: 35,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              //* search_bar
+              ClipRRect(
+                borderRadius: BorderRadius.circular(22),
+                child: TextField(
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.all(15),
+                    suffixIcon: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                      child: Icon(
+                        Icons.search,
+                        size: 30,
+                      ),
                     ),
+                    fillColor: Color(0xffF5F6F1),
+                    filled: true,
+                    hintText: 'جستجو',
+                    hintStyle: TextStyle(
+                      color: Color(0xff7E7E7E),
+                      fontSize: 13,
+                    ),
+                    border: InputBorder.none,
                   ),
-                  fillColor: Color(0xffF5F6F1),
-                  filled: true,
-                  hintText: 'جستجو',
-                  hintStyle: TextStyle(
-                    color: Color(0xff7E7E7E),
-                    fontSize: 13,
-                  ),
-                  border: InputBorder.none,
                 ),
               ),
-            ),
-            SizedBox(height: 30),
-            Text('دسته بندی ها'),
-            SizedBox(height: 20),
-            // * category Row
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  // * category Row item
-                  CategoryRowItem(title: 'پاستا', imageName: 'pasta'),
-                  CategoryRowItem(title: 'پیتزا', imageName: 'pizza'),
-                  CategoryRowItem(title: 'برگر', imageName: 'burger'),
-                  CategoryRowItem(title: 'پاستا', imageName: 'pasta'),
-                  CategoryRowItem(title: 'پیتزا', imageName: 'pizza'),
-                  CategoryRowItem(title: 'برگر', imageName: 'burger'),
-                ],
+              SizedBox(height: 30),
+              Text('دسته بندی ها',
+                  style: Theme.of(context).textTheme.headline1),
+              SizedBox(height: 20),
+              // * category Row
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    // * category Row item
+                    CategoryRowItem(title: 'پاستا', imageName: 'pasta'),
+                    CategoryRowItem(title: 'پیتزا', imageName: 'pizza'),
+                    CategoryRowItem(title: 'برگر', imageName: 'burger'),
+                    CategoryRowItem(title: 'پاستا', imageName: 'pasta'),
+                    CategoryRowItem(title: 'پیتزا', imageName: 'pizza'),
+                    CategoryRowItem(title: 'برگر', imageName: 'burger'),
+                  ],
+                ),
               ),
-            ),
-          ],
+              SizedBox(height: 20),
+              Text('پیشنهادها', style: Theme.of(context).textTheme.headline1),
+              SizedBox(height: 10),
+              Column(
+                children: [
+                  OfferCard(
+                    title: 'پیتزا اسپشیال',
+                    description:
+                        'موزارلا، فلفل دلمه ای رنگی، ژامبون بیکن، قارچ، پنیر گودا، پنیر،سس گوجه فرنگی، ژامبون ایتالیایی،خمیر پیتزا ایتالیایی ۳۰ سانتی متری،',
+                    imageName: 'pepperoni',
+                    price: 170,
+                  ),
+                  OfferCard(
+                    title: 'پیتزا سبزیجات',
+                    description:
+                        'پنیر ماتزارالا کدو گریل شده، قارچ، فلفل دلمه، پیاز ،خمیر پیتزا ایتالیایی ۳۰ سانتی متری،',
+                    imageName: 'vegetarian',
+                    price: 129,
+                  ),
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );
   }
 }
 
+// *OfferCard
+class OfferCard extends StatelessWidget {
+  final String? title;
+  final String? description;
+  final String? imageName;
+  final double? price;
+
+  OfferCard({
+    required this.title,
+    required this.description,
+    required this.imageName,
+    required this.price,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(bottom: 15),
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0),
+        ),
+        elevation: 4,
+        child: Padding(
+          padding: const EdgeInsets.all(22.0),
+          child: Row(
+            children: [
+              Expanded(
+                flex: 3,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title!,
+                      style: Theme.of(context).textTheme.headline2,
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      description!,
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                    SizedBox(height: 15),
+                    Text(
+                      price!.toStringAsFixed(3),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                flex: 2,
+                child: Column(
+                  children: [
+                    Image.asset(
+                      'images/$imageName.png',
+                      fit: BoxFit.cover,
+                    ),
+                    SizedBox(height: 10),
+                    OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        minimumSize: Size(150, 20),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(27.0),
+                        ),
+                        side: BorderSide(
+                          color: Color(0xffFFB95B),
+                        ),
+                        primary: Color(0xffFFB95B),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Text('افزودن'),
+                      ),
+                      onPressed: () {},
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// * category Row item widget
 class CategoryRowItem extends StatelessWidget {
   final String? title;
   final String? imageName;
@@ -157,7 +267,6 @@ class CategoryRowItem extends StatelessWidget {
         children: [
           Image.asset(
             'images/$imageName.png',
-            width: 180,
             height: 100,
             fit: BoxFit.cover,
           ),
